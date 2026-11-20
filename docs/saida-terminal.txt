@@ -1,0 +1,31 @@
+# Saída real do terminal (uvicorn + chamadas com httpx)
+
+INFO:     Started server process [254]
+INFO:     Waiting for application startup.
+INFO:     ASGI 'lifespan' protocol appears unsupported.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8010 (Press CTRL+C to quit)
+[sync] Iniciando a view síncrona
+[sync] Tarefa 1: começou
+[sync] Tarefa 1: terminou
+[sync] Tarefa 2: começou
+[sync] Tarefa 2: terminou
+[sync] Tarefa 3: começou
+[sync] Tarefa 3: terminou
+[sync] Fim da view: 3.0 s | resultados = [10, 20, 30]
+INFO:     127.0.0.1:34772 - "GET /sync/ HTTP/1.1" 200 OK
+[async] Iniciando a view assíncrona
+[async] Tarefa 1: começou
+[async] Tarefa 2: começou
+[async] Tarefa 3: começou
+[async] Tarefa 1: terminou (awaited)
+[async] Tarefa 2: terminou (awaited)
+[async] Tarefa 3: terminou (awaited)
+[async] Fim da view: 1.0 s | resultados = [10, 20, 30]
+INFO:     127.0.0.1:34782 - "GET /async/ HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Finished server process [254]
+
+# Lado do cliente
+GET /sync/ -> 200 {'tipo': 'sync', 'resultados': [10, 20, 30], 'tempo_segundos': 3.0} (cliente mediu 3.06 s)
+GET /async/ -> 200 {'tipo': 'async', 'resultados': [10, 20, 30], 'tempo_segundos': 1.0} (cliente mediu 1.01 s)
